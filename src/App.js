@@ -1,19 +1,38 @@
-import './App.css'
-
 import React, {Component} from 'react'
+import 'tracking/build/tracking-min'
+import {Video} from './Video'
+import {Resolver} from './Resolver'
 
 class App extends Component {
-  render() {
-    return <div className="App">
-      <div className="App-heading App-flex">
-        <h2>Welcome to <span className="App-react">React</span></h2>
-      </div>
-      <div className="App-instructions App-flex">
-        <img className="App-logo" src={require('./react.svg')}/>
-        <p>Edit <code>src/App.js</code> and save to hot reload your changes.</p>
-      </div>
-    </div>
-  }
+    constructor(props) {
+        super(props)
+        this.state = {
+            title           : 'Resolver',
+            loweredImageData: null
+        }
+    }
+
+    componentDidMount() {
+    }
+
+    changeLoweredImage(ImageData) {
+        this.setState({loweredImageData: ImageData})
+    }
+
+    changeTitle(title) {
+        this.setState({title})
+    }
+
+    render() {
+        return (
+            <div className="app">
+                <Video onChangeTitle={this.changeTitle.bind(this)}
+                       onLoweredImageChange={this.changeLoweredImage.bind(this)}/>
+                <Resolver title={this.state.title}
+                          loweredImage={this.state.loweredImageData}/>
+            </div>
+        )
+    }
 }
 
 export default App
