@@ -7,7 +7,7 @@
  ***************************************/
 
 import React from 'react'
-import {ImageParsing} from './ImageParsing'
+//import {ImageParsing} from './ImageParsing'
 
 tracking.initUserMedia_ = function(element, opt_options) {
     window.navigator.mediaDevices.getUserMedia({

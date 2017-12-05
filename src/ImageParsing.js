@@ -6,7 +6,7 @@
  ** 2017 - All rights reserved
  ***************************************/
 
-export class ImageParsing {
+/*export class ImageParsing {
     constructor(props, vW, vH) {
         this.videoHeight = vH
         this.videoWidth = vW
@@ -83,3 +83,4 @@ export class ImageParsing {
         this.img = img
     }
 }
+*/
