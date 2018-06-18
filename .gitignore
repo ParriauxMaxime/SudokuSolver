@@ -6,3 +6,6 @@ npm-debug.log*
 **/*.css
 **/*.css.map
 yarn.lock
+package-lock.json
+/tests
+.travis.yml

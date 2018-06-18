@@ -6,29 +6,13 @@
  ** 2017 - All rights reserved
  ***************************************/
 
-
-export const BigGrid = (matrix) => {
-    return {
-        topLeft    : new TopLeftCorner(matrix),
-        topRight   : new TopRightCorner(matrix),
-        bottomLeft : new BottomLeftCorner(matrix),
-        bottomRight: new BottomRightCorner(matrix),
-    }
-}
-
-class Corner {
+class Pattern {
     constructor(matrix) {
         this.matrix = matrix
         this.height = matrix.length
         if (!matrix[0])
             throw 'Error'
         this.width = matrix[0].length
-        this.finalStep = this.height / 2
-        return this.runAnalyze()
-    }
-
-    findCorner() {
-        return ([])
     }
 
     convertIndexToPos(i) {
@@ -38,8 +22,29 @@ class Corner {
         }
     }
 
-    convertPosToIndex({x, y}) {
-        return ( y * this.height + x )
+    convertPosToIndex({ x, y }) {
+        return (y * this.height + x)
+    }
+}
+
+export const BigGrid = (matrix) => {
+    return {
+        topLeft: new TopLeftCorner(matrix),
+        topRight: new TopRightCorner(matrix),
+        bottomLeft: new BottomLeftCorner(matrix),
+        bottomRight: new BottomRightCorner(matrix),
+    }
+}
+
+class Corner extends Pattern {
+    constructor(matrix) {
+        super(matrix);
+        this.finalStep = this.height / 2
+        return this.runAnalyze()
+    }
+
+    findCorner() {
+        return ([])
     }
 
     runAnalyze() {
@@ -73,7 +78,7 @@ export class TopLeftCorner extends Corner {
                     y = step
                 }
                 if (this.matrix[y][x] === 255)
-                    tab.push(this.convertPosToIndex({x, y}))
+                    tab.push(this.convertPosToIndex({ x, y }))
                 if (tab.length !== 0)
                     return tab
             }
@@ -108,7 +113,7 @@ export class TopRightCorner extends Corner {
                 }
                 try {
                     if (this.matrix[y][x] === 255)
-                        tab.push(this.convertPosToIndex({x, y}))
+                        tab.push(this.convertPosToIndex({ x, y }))
                     if (tab.length !== 0)
                         return tab
                 }
@@ -138,7 +143,7 @@ export class BottomLeftCorner extends Corner {
                     x = step
                 }
                 else {
-                    x =  subStep - step
+                    x = subStep - step
                 }
                 if (subStep <= step) {
                     y = this.height - 1 - subStep
@@ -147,7 +152,7 @@ export class BottomLeftCorner extends Corner {
                     y = this.height - 1 - step
                 }
                 if (this.matrix[y][x] === 255)
-                    tab.push(this.convertPosToIndex({x, y}))
+                    tab.push(this.convertPosToIndex({ x, y }))
                 if (tab.length !== 0)
                     return tab
             }
@@ -161,7 +166,7 @@ export class BottomRightCorner extends Corner {
         super(matrix)
     }
 
-    findCorner(start = {x: 0, y: 0}) {
+    findCorner(start = { x: 0, y: 0 }) {
         let tab = []
 
         for (let step = 0; step < this.finalStep; step++) {
@@ -181,7 +186,7 @@ export class BottomRightCorner extends Corner {
                     y = this.height - 1 - step
                 }
                 if (this.matrix[y][x] === 255)
-                    tab.push(this.convertPosToIndex({x, y}))
+                    tab.push(this.convertPosToIndex({ x, y }))
                 if (tab.length !== 0)
                     return tab
             }

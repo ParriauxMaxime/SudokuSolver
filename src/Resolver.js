@@ -7,7 +7,7 @@
  ***************************************/
 
 import React from 'react'
-import {ImageAnalyzer} from './ImageAnalyzer'
+import { ImageAnalyzer } from './ImageAnalyzer'
 
 export class Resolver extends React.Component {
     constructor(props) {
@@ -18,14 +18,11 @@ export class Resolver extends React.Component {
         this.analyze = null
         this.height = props.height || 480
         this.width = props.width || 480
-        this.state = {
-            backgroundColor: 'white',
-        }
     }
 
     componentWillUpdate(nextProps) {
-        if (!this.analyzing && this.props.loweredImage !== nextProps.loweredImage && this.canvas) {
-            this.setState({analyzing: true}, () => {
+        if (!this.analyzing && this.props.loweredImage !== nextProps.loweredImage && this.canvas && nextProps.status) {
+            this.setState({ analyzing: true }, () => {
                 this.imageAnalyzer = new ImageAnalyzer(nextProps.loweredImage)
                 this.imageAnalyzer.run(this.endAnalyze.bind(this))
             })
@@ -34,7 +31,7 @@ export class Resolver extends React.Component {
 
     endAnalyze(analyze) {
         const backgroundColor = analyze.result ? 'green' : 'red'
-        this.setState({analyzing: false, analyze, backgroundColor}, () => {
+        this.setState({ analyzing: false, analyze, backgroundColor }, () => {
             this.canvas.width = analyze.width
             this.canvas.height = analyze.height
 
@@ -49,15 +46,16 @@ export class Resolver extends React.Component {
     }
 
     render() {
+        const { title } = this.props;
         return (
-            <div className="full flexCol" id="Resolver"
-                 style={{backgroundColor: this.state.backgroundColor}}>
+            <div className="full flexCol"
+                id="Resolver">
                 <h1>{this.props.title}</h1>
                 <div className="echelle"></div>
                 {
                     this.props.loweredImage ?
                         <canvas width="300" height="300"
-                                ref={(ref) => {this.canvas = ref}}>
+                            ref={(ref) => { this.canvas = ref }}>
                         </canvas> :
                         null
                 }
